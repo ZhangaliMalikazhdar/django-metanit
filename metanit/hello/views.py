@@ -1,21 +1,35 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponse, HttpResponseNotFound, \
+    HttpResponseForbidden, HttpResponseBadRequest, \
+    HttpResponseRedirect, HttpResponsePermanentRedirect
 
 
-def index(request):
-    return HttpResponse('main')
+def index(request, id):
+    people = ['Tom', 'Bob', 'Sam']
+    if id in range(len(people)):
+        return HttpResponse(people[id])
+    else:
+        return HttpResponseNotFound('nt fnd')
 
 
-def about(request):
-    return HttpResponse('about')
+def access(request, age):
+    if age not in range(1, 111):
+        return HttpResponseBadRequest('inc data')
+    elif age > 17:
+        return HttpResponse('access')
+    else:
+        return HttpResponseForbidden('not enough age')
 
-
-def contact(request):
-    return HttpResponseRedirect('/about')
-
-
-def details(request):
-    return HttpResponsePermanentRedirect('/')
+# def about(request):
+#     return HttpResponse('about')
+#
+#
+# def contact(request):
+#     return HttpResponseRedirect('/about')
+#
+#
+# def details(request):
+#     return HttpResponsePermanentRedirect('/')
 
 
 # def user(request):
