@@ -25,8 +25,9 @@ from hello import views
 # ]
 
 urlpatterns = [
-    path('index/<int:id>', views.index),
-    path('access/<int:age>', views.access),
+    path('', views.index),
+
+    # path('access/<int:age>', views.access),
 
     # path('about/', views.about),
     # path('contact/', views.contact),
