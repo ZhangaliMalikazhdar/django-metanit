@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('haol', headers={"Secret": "o2i3q4u02"})
+    return HttpResponse('eror', status=400, reason='incora date')
 
 
 def about(request, name, age):
