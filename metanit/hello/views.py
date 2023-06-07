@@ -3,20 +3,16 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('<h2>main</h2>')
+    return HttpResponse('main')
 
 
-def user(request, name, age):
-    return HttpResponse(f'<h2>Name: {name}, {age}</h2>')
+def products(request):
+    return HttpResponse('products')
 
 
-def about(request, name, age):
-    return HttpResponse(f'''
-        <h2>about user</h2>
-        <p>Name: {name}</p>
-        <p>Age: {age}</p>
-    ''')
+def new(request):
+    return HttpResponse('new product')
 
 
-def contact(request):
-    return HttpResponse('contact')
+def top(request):
+    return HttpResponse('popular')
