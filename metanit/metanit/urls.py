@@ -20,6 +20,7 @@ from hello import views
 
 urlpatterns = [
     path('', views.index, name='home'),
+    path('user/<str:name>/<int:age>', views.user),
     re_path('about/', views.about, kwargs={'name': 'Tom', 'age': 23}),
     re_path('contact/', views.contact),
 

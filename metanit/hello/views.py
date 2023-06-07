@@ -3,7 +3,11 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('<h1>zero</h1>', content_type='text/plain', charset='utf-8')
+    return HttpResponse('<h2>main</h2>')
+
+
+def user(request, name, age):
+    return HttpResponse(f'<h2>Name: {name}, {age}</h2>')
 
 
 def about(request, name, age):
