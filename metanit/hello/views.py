@@ -6,6 +6,12 @@ def index(request):
     return HttpResponse('main')
 
 
+def user(request):
+    age = request.GET.get('age', 0)
+    name = request.GET.get('name', 'Undefined')
+    return HttpResponse(f'<h2>Name: {name} Age: {age}</h2>')
+
+
 def products(request):
     return HttpResponse('products')
 
