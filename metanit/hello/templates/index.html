@@ -1,13 +1,13 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <title>Django на Meta</title>
 </head>
 <body>
-    {{body}}
-    {% autoescape off %}
-        {{body}}
-    {% endautoescape %}
+    <h1>Z les</h1>
+    <img src="{% static 'images/31189.jpg' %}" alt="zim les">
 </body>
 </html>
