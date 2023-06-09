@@ -6,6 +6,22 @@ from django.http import HttpResponse, HttpResponseNotFound, \
 from django.core.serializers.json import DjangoJSONEncoder
 
 
+# set_cookie(key, value='', max_age=None, expires=None, path='/', domain=None, secure=False, httponly=False, samesite=None)
+# set_signed_cookie(key, value, salt='', max_age=None, expires=None, path='/', domain=None, secure=False, httponly=False, samesite=None)
+# get_signed_cookie(key, default=RAISE_ERROR, salt='', max_age=None)
+
+def set(request):
+    username = request.GET.get('username', 'Undefin')
+    response = HttpResponse(f'Helo {username}')
+    response.set_cookie('username', username)
+    return response
+
+
+def get(request):
+    username = request.COOKIES['username']
+    return HttpResponse(f'helo {username}')
+
+
 def index(request):
     bob = Person('Bob', 32)
     return JsonResponse(bob, safe=False, encoder=PersonEncoder)

@@ -26,7 +26,8 @@ from hello import views
 
 urlpatterns = [
     path('', views.index),
-
+    path('set', views.set),
+    path('get', views.get),
     # path('access/<int:age>', views.access),
 
     # path('about/', views.about),
