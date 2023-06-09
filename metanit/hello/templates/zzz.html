@@ -6,7 +6,7 @@
 </head>
 <body>
     {% with name='Tim' age=23 %}
-        <p>{{ name }}</p>
+        <p>{{ name|add:" zz" }}</p>
         <p>{{ age }}</p>
     {% endwith %}
 
