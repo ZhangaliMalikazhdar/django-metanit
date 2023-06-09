@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound, \
     HttpResponseRedirect, HttpResponsePermanentRedirect, \
     JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
+from django.template.response import TemplateResponse
 
 
 # set_cookie(key, value='', max_age=None, expires=None, path='/', domain=None, secure=False, httponly=False, samesite=None)
@@ -23,7 +24,7 @@ def get(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    return TemplateResponse(request, 'index.html')
     # bob = Person('Bob', 32)
     # return JsonResponse(bob, safe=False, encoder=PersonEncoder)
 
