@@ -1,3 +1,11 @@
-{% extends 'base.html' %}
-{% block title %}Index{% endblock title %}
-{% block header %}Main{% endblock header %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dj meta</title>
+</head>
+<body>
+  <h2>maain page</h2>
+  {% include 'banner.html' with tutorial='python' only %}
+</body>
+</html>
