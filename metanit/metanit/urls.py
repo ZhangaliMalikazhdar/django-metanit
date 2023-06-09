@@ -28,6 +28,7 @@ urlpatterns = [
     path('', views.index),
     path('set', views.set),
     path('get', views.get),
+    path('zzz', views.zzz),
     # path('access/<int:age>', views.access),
 
     # path('about/', views.about),

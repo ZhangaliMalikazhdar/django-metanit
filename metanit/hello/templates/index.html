@@ -5,6 +5,10 @@
     <title>Django на Meta</title>
 </head>
 <body>
-    <h2>hola meta</h2>
+    <h2>{{ header }}</h2>
+    {# <p>{{ message }}df</p> #}
+    <p>Name: {{user.name}} Age: {{user.age}}</p>
+    <p>Address: str. {{address.0}}, d. {{address.1}}, kv. {{address.2}}</p>
+    <p>Languages: {{langs.0}}, {{langs.1}}</p>
 </body>
 </html>

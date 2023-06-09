@@ -24,13 +24,24 @@ def get(request):
 
 
 def index(request):
-    return TemplateResponse(request, 'index.html')
+    data = {'header': 'hola dj', 'message': 'welcome to py'}
+    header = 'data user'
+    langs = ['python', 'java', 'csharp']
+    user = {'name': 'Tom', 'age': 23}
+    address = ('Abrik', 23, 34)
+    dzz = {'header': header, 'langs': langs, 'user': user, 'address': address}
+    return TemplateResponse(request, 'index.html', context=dzz)
     # bob = Person('Bob', 32)
     # return JsonResponse(bob, safe=False, encoder=PersonEncoder)
 
 
+def zzz(request):
+    print(Person('Tom').name)
+    return render(request, 'zzz.html', context={'person': Person('Tom')})
+
+
 class Person:
-    def __init__(self, name, age):
+    def __init__(self, name, age=0):
         self.name = name
         self.age = age
 
