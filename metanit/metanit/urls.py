@@ -18,23 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from hello import views
 
-# product_patterns = [
-#     path('', views.products),
-#     path('new', views.new),
-#     path('top', views.top),
-# ]
 
 urlpatterns = [
     path('', views.index),
-    path('set', views.set),
-    path('get', views.get),
-    path('zzz', views.zzz),
-    # path('access/<int:age>', views.access),
-
-    # path('about/', views.about),
-    # path('contact/', views.contact),
-    # path('details/', views.details),
-
-    # path('user/', views.user),
-    # path('products/', include(product_patterns)),
 ]
