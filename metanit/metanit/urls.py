@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 from hello import views
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
     path('', views.index),
     path('zzz', views.zzz),
+    path('about/', TemplateView.as_view(template_name='about.html', extra_context={'header': 'oa ao'})),
+    path('contact/', TemplateView.as_view(template_name='contact.html')),
 ]
