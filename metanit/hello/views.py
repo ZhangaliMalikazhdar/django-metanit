@@ -23,8 +23,9 @@ def get(request):
 
 
 def index(request):
-    bob = Person('Bob', 32)
-    return JsonResponse(bob, safe=False, encoder=PersonEncoder)
+    return render(request, 'index.html')
+    # bob = Person('Bob', 32)
+    # return JsonResponse(bob, safe=False, encoder=PersonEncoder)
 
 
 class Person:
