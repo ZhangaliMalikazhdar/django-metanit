@@ -21,4 +21,5 @@ from hello import views
 
 urlpatterns = [
     path('', views.index),
+    path('zzz', views.zzz),
 ]

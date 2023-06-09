@@ -5,6 +5,14 @@
     <title>dj zzz</title>
 </head>
 <body>
-  <h1>Person {{ person.name }}</h1>
+    {% with name='Tim' age=23 %}
+        <p>{{ name }}</p>
+        <p>{{ age }}</p>
+    {% endwith %}
+
+    <p>{% now 'Y' %}</p>
+    <p>{% now 'F j, Y' %}</p>
+    <p>{% now 'N, j, Y' %}</p>
+    <p>{% now 'N j, Y, P' %}</p>
 </body>
 </html>
