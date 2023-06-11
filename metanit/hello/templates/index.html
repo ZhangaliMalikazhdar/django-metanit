@@ -10,32 +10,10 @@
         {% csrf_token %}
         <table>
             {{ form.as_table }}
-    <!--        <tr><th><label for="id_name">Name:</label></th><td><input type="text" name="name" required id="id_name" /></td></tr>
-    <tr><th><label for="id_age">Age:</label></th><td><input type="number" name="age" required id="id_age" /></td></tr>     -->
         </table>
         <input type="submit" value="Send">
     </form>
 
-    <h2>as_ul</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_ul }}
-    <!--        <tr><th><label for="id_name">Name:</label></th><td><input type="text" name="name" required id="id_name" /></td></tr>
-    <tr><th><label for="id_age">Age:</label></th><td><input type="number" name="age" required id="id_age" /></td></tr>     -->
-        </table>
-        <input type="submit" value="Send">
-    </form>
-
-    <h2>as_p</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_p }}
-    <!--        <tr><th><label for="id_name">Name:</label></th><td><input type="text" name="name" required id="id_name" /></td></tr>
-    <tr><th><label for="id_age">Age:</label></th><td><input type="number" name="age" required id="id_age" /></td></tr>     -->
-        </table>
-        <input type="submit" value="Send">
     </form>
 </body>
 </html>
