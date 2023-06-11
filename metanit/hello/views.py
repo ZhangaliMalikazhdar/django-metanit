@@ -1,13 +1,14 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from .forms import UserForm
+from .models import Person
 
 
-def index(request):
-    userform = UserForm()
-    if request.method == 'POST':
-        userform = UserForm(request.POST)
-        if userform.is_valid():
-            name = userform.cleaned_data['name']
-            return HttpResponse(f'<h2>helo, {name}</h2>')
-    return render(request, 'index.html', {'form': userform})
+people = Person.objects.all()
+print(people.query)
+
+people = people.filter(name='Tom')
+print(people.query)
+
+people = people.filter(age=31)
+print(people.query)
+
+for person in people:
+    print(f'{person.id}.{person.name} - {person.age}')
