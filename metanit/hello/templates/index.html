@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <title>Dj meta</title>
     <style>
-        .field{font-weight:bold;}
-        .error{color:red;}
+        .myfield {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 25px;
+            width: 200px;
+            margin: 10px 10px 10px 0;
+        }
     </style>
 </head>
-<body class="container">
-    <form method="POST" novalidate>
+<body>
+    <form method="POST">
         {% csrf_token %}
-        <table>{{ form }}</table>
-        <p><input type="submit" value="Send"></p>
-    </form>
-
+        <div>
+            {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                <div>{{ field }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <input type="submit" value="Send" >
     </form>
 </body>
 </html>
