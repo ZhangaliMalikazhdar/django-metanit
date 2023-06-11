@@ -1,14 +1,12 @@
 from .models import Person
+import asyncio
 
 
-people = Person.objects.all()
-print(people.query)
+async def abulk_person():
+    people = await Person.objects.abulk_create([
+        Person(name='AKate', age=33),
+        Person(name='ARose', age=45),
+    ])
 
-people = people.filter(name='Tom')
-print(people.query)
+asyncio.run(abulk_person())
 
-people = people.filter(age=31)
-print(people.query)
-
-for person in people:
-    print(f'{person.id}.{person.name} - {person.age}')
