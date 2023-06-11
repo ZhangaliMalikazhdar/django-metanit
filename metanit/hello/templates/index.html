@@ -5,20 +5,14 @@
     <title>Dj meta</title>
 </head>
 <body>
-    <h2>User form</h2>
-    <form method="post" action="postuser/">
+    <form method="POST">
         {% csrf_token %}
-        <p>Name:<br> <input name="name" /></p>
-        <p>Age:<br> <input name="age" type="number" /></p>
-        <p>
-            Languages:<br />
-            <select multiple name="languages">
-                <option>C++</option>
-                <option>pytha</option>
-                <option>java</option>
-            </select>
-        </p>
-        <input type="submit" value="Send" />
+        <table>
+            {{ form }}
+    <!--        <tr><th><label for="id_name">Name:</label></th><td><input type="text" name="name" required id="id_name" /></td></tr>
+    <tr><th><label for="id_age">Age:</label></th><td><input type="number" name="age" required id="id_age" /></td></tr>     -->
+        </table>
+        <input type="submit" value="Send">
     </form>
 </body>
 </html>
