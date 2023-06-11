@@ -22,5 +22,4 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.index),
-    path('postuser/', views.postuser),
 ]

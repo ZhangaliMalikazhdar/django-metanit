@@ -4,23 +4,10 @@ from .forms import UserForm
 
 
 def index(request):
+    userform = UserForm()
     if request.method == 'POST':
         userform = UserForm(request.POST)
         if userform.is_valid():
             name = userform.cleaned_data['name']
-            return HttpResponse(f'<h2>hola, {name}')
-        else:
-            return HttpResponse('Inv data')
-    else:
-        userform = UserForm()
-        return render(request, 'index.html', {'form': userform})
-
-
-def postuser(request):
-    name = request.POST.get('name', 'Undefin')
-    age = request.POST.get('age', 1)
-    langs = request.POST.getlist('languages', ['python'])
-    return HttpResponse(f'''
-        <div>Name: {name} Age: {age}</div>
-        <div>Languages: {langs}</div>
-        ''')
+            return HttpResponse(f'<h2>helo, {name}</h2>')
+    return render(request, 'index.html', {'form': userform})

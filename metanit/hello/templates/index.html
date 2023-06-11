@@ -6,12 +6,18 @@
 </head>
 <body>
     <h2>as_table</h2>
-    <form method="POST">
+    <form method="POST" novalidate>
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Send">
+        <div>
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                <div>{{ field }}</div>
+                <div class="error">{{ field.errors }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <p><input type="submit" value="Send"></p>
     </form>
 
     </form>
