@@ -1,12 +1,11 @@
 from .models import Person
-import asyncio
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 
-async def abulk_person():
-    people = await Person.objects.abulk_create([
-        Person(name='AKate', age=33),
-        Person(name='ARose', age=45),
-    ])
-
-asyncio.run(abulk_person())
-
+try:
+    tom = Person.objects.get(name='Tom')
+    alex = Person.objects.get(name='Akame')
+except ObjectDoesNotExist:
+    print('obj dsnt exst')
+except MultipleObjectsReturned:
+    print('on mor obj in sme')
