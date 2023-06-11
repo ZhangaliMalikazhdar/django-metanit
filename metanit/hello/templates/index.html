@@ -4,27 +4,14 @@
     <meta charset="UTF-8">
     <title>Dj meta</title>
     <style>
-        .alert{color:red}
-        .form-group{margin:10px 0;}
-        .form-group input{width:250px;height:25px;border-radius:3px;}
+        .field{font-weight:bold;}
+        .error{color:red;}
     </style>
 </head>
 <body class="container">
     <form method="POST" novalidate>
         {% csrf_token %}
-        <div>
-            {% for field in form %}
-            <div class="form-group">
-                {{ field.label_tag }}
-                <div>{{ field }}</div>
-                {% if field.errors %}
-                {% for error in field.errors %}
-                <div class="alert alert-danger">{{ error }}</div>
-                {% endfor %}
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
+        <table>{{ form }}</table>
         <p><input type="submit" value="Send"></p>
     </form>
 
