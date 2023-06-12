@@ -3,42 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Dj meta</title>
-    <style>
-        .myfield {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            height: 25px;
-            width: 200px;
-            margin: 10px 10px 10px 0;
-        }
-    </style>
 </head>
 <body>
-    <form method="POST" action="create/">
-        {% csrf_token %}
-        <p>
-            <label>write name</label><br>
-            <input type="text" name="name" />
-        </p>
-        <p>
-            <label>write age</label><br>
-            <input type="number" name="age" />
-        </p>
-        <input type="submit" value="Save" >
-    </form>
-    {% if people.count > 0 %}
-    <h2>list user</h2>
+    <h2>list prods</h2>
+    <a href="create/">add prd</a>
     <table>
-        <thead><th>Id</th><th>Name</th><th>Age</th><th></th></thead>
-        {% for person in people %}
+        <thead><th>name</th><th>price</th><th>cmp</th><th></th></thead>
+        {% for product in products %}
         <tr>
-            <td>{{ person.id }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.age }}</td>
-            <td><a href="edit/{{ person.id }}">Change</a> | <a href="delete/{{ person.id }}">Delete</a></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.company.name }}</td>
+            <td><a href="edit/{{ product.id }}">Change</a> | <a href="delete/{{ product.id }}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>
-    {% endif %}
 </body>
 </html>

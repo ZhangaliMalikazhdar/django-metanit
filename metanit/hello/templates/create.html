@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mtnt com</title>
+</head>
+<body>
+  <h2>add prd</h2>
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      <label>write name prd</label><br>
+      <input type="text" name="name" />
+    </p>
+    <p>
+      <label>write price prd</label><br>
+      <input type="number" name="price" />
+    </p>
+    <p>
+      <label>choose cmp</label><br>
+      <select name="company">
+        {% for company in companies %}
+          <option value="{{ company.id }}">{{ company.name }}</option>
+        {% endfor %}
+      </select>
+    </p>
+    <input type="submit" value="save">
+  </form>
+</body>
+</html>

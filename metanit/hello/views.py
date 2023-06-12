@@ -1,24 +1,56 @@
+from django.shortcuts import render
 from .models import *
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 
-print(Product.objects.get(id=3).company.id)
-
-print(Product.objects.get(id=2).company.name)
-
-apple = Product.objects.filter(company__name='apple')
-
-print(apple.values_list)
-
-apple = Company.objects.get(name='apple')
-print(apple.product_set.all())
-print(apple.product_set.count())
-print(apple.product_set.filter(name__startswith='mac'))
+def index(request):
+    products = Product.objects.all()
+    return render(request, 'index.html', {'products': products})
 
 
-oppo = Company.objects.create(name='Oppo')
-oppo.product_set.create(name='Oppo 2020', price=1000)
-oppoX = Product(name='OppoX', price=2300)
-oppo.product_set.add(oppoX, bulk=False)
+def create(request):
+    create_companies()
 
-o = Company.objects.get(name='Oppo')
-print(o.product_set.filter(name__endswith='X'))
+    if request.method == 'POST':
+        product = Product()
+        product.name = request.POST.get('name')
+        product.price = request.POST.get('price')
+        product.company_id = request.POST.get('company')
+        product.save()
+        return HttpResponseRedirect('/')
+
+    companies = Company.objects.all()
+    return render(request, 'create.html', {'companies': companies})
+
+
+def edit(request, pk):
+    try:
+        product = Product.objects.get(id=pk)
+
+        if request.method == 'POST':
+            product.name = request.POST.get('name')
+            product.price = request.POST.get('price')
+            product.company_id = request.POST.get('company')
+            product.save()
+            return HttpResponseRedirect('/')
+        else:
+            companies = Company.objects.all()
+            return render(request, 'edit.html', {'product': product, 'companies': companies})
+    except Product.DoesNotExist:
+        return HttpResponseNotFound('<h2>pr nt fnd</h2>')
+
+
+def delete(request, pk):
+    try:
+        product = Product.objects.get(id=pk)
+        product.delete()
+        return HttpResponseRedirect('/')
+    except Product.DoesNotExist:
+        return HttpResponseNotFound('<h2> pr nt f</h2>')
+
+
+def create_companies():
+    if Company.objects.all().count() == 0:
+        Company.objects.create(name='Apple')
+        Company.objects.create(name='Asus')
+        Company.objects.create(name='MSI')

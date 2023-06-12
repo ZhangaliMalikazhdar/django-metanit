@@ -2,18 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>mtn</title>
 </head>
 <body>
+<h2>change prd</h2>
   <form method="POST">
     {% csrf_token %}
     <p>
       <label>write name</label><br>
-      <input type="text" name="name" value="{{ person.name }}" />
+      <input type="text" name="name" value="{{ product.name }}" />
     </p>
     <p>
       <label>Write age</label><br>
-      <input type="number" name="age" value="{{ person.age }}" />
+      <input type="number" name="price" value="{{ product.price }}" />
+    </p>
+    <p>
+      <label>write company</label><br>
+      <select name="company">
+        {% for company in companies %}
+          <option value="{{ company.id }}"
+            {% if company.id == product.company_id %}
+            selected
+            {% endif %}
+          >{{ company.name }}</option>
+        {% endfor %}
+      </select>
     </p>
     <input type="submit" value="Save" >
   </form>
