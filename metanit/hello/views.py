@@ -1,41 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponseNotFound
-from .models import Person
+from .models import *
 
 
-def index(request):
-    people = Person.objects.all()
-    return render(request, 'index.html', {'people': people})
+print(Product.objects.get(id=3).company.id)
+
+print(Product.objects.get(id=2).company.name)
+
+apple = Product.objects.filter(company__name='apple')
+
+print(apple.values_list)
+
+apple = Company.objects.get(name='apple')
+print(apple.product_set.all())
+print(apple.product_set.count())
+print(apple.product_set.filter(name__startswith='mac'))
 
 
-def create(request):
-    if request.method == 'POST':
-        person = Person()
-        person.name = request.POST.get('name')
-        person.age = request.POST.get('age')
-        person.save()
-    return HttpResponseRedirect('/')
+oppo = Company.objects.create(name='Oppo')
+oppo.product_set.create(name='Oppo 2020', price=1000)
+oppoX = Product(name='OppoX', price=2300)
+oppo.product_set.add(oppoX, bulk=False)
 
-
-def edit(request, pk):
-    try:
-        person = Person.objects.get(id=pk)
-
-        if request.method == 'POST':
-            person.name = request.POST.get('name')
-            person.age = request.POST.get('age')
-            person.save()
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, 'edit.html', {'person': person})
-    except Person.DoesNotExist:
-        return HttpResponseNotFound('<h2>Prs nt found</h2>')
-
-
-def delete(request, pk):
-    try:
-        person = Person.objects.get(id=pk)
-        person.delete()
-        return HttpResponseRedirect('/')
-    except Person.DoesNotExist:
-        return HttpResponseNotFound('<h2>prs nt fnd')
+o = Company.objects.get(name='Oppo')
+print(o.product_set.filter(name__endswith='X'))
