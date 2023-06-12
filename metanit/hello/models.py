@@ -7,3 +7,10 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    datetime = models.DateTimeField()
+
+    def __str__(self):
+        return str(self.datetime)

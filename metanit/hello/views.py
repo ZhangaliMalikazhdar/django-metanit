@@ -1,26 +1,29 @@
-from .models import Person
-from django.db.models import F
+from .models import Order, Person
+from datetime import datetime, date, time
 
 
-# number = Person.objects.filter(id=1).update(name='Mike')
-# Person.objects.all().update(age=F("age") + 1)
+if Order.objects.count() == 0:
+    Order.objects.create(datetime=datetime(2021, 12, 26, 11, 25, 34))
+    Order.objects.create(datetime=datetime(2022, 5, 12, 12, 25, 34))
+    Order.objects.create(datetime=datetime(2022, 5, 22, 13, 25, 34))
+    Order.objects.create(datetime=datetime(2022, 8, 19, 14, 25, 34))
 
-# values_for_update = {'name': 'Bob', 'age': 31}
-# bob, created = Person.objects.update_or_create(id=2, defaults=values_for_update)
+orders = Order.objects.filter(datetime__month=5)
+for order in orders:
+    print(order)
+print()
+orders = Order.objects.filter(datetime__month__gt=5)
+for order in orders:
+    print(order)
+print()
+orders = Order.objects.filter(datetime__date=date(2022, 5, 22))
+for order in orders:
+    print(order)
+print()
+orders = Order.objects.filter(datetime__time__gt=time(12, 20, 0))
+for order in orders:
+    print(order)
 
-# f = Person.objects.get(id=1)
-# f.name = 'Zora'
-# s = Person.objects.get(id=2)
-# s.age = 10
-# n = Person.objects.bulk_update([f, s], ['name', 'age'])
-
-# Person.objects.all().delete()
-
-# for i in Person.objects.exclude(name='Bob'):
-#     print(i.name, i.age)
-
-
-print(Person.objects.filter(name__iexact='Bob'))
-print(Person.objects.filter(name__contains='k'))
-print(Person.objects.filter(name__icontains='T'))
-print(Person.objects.filter(name__regex=r'(ob|te)$'))
+print(Person.objects.filter(name="Bob") & Person.objects.filter(age__range=(1, 50)))
+print(Person.objects.filter(name="Tom") | Person.objects.filter(age=10))
+print(Person.objects.filter(name="Tom") ^ Person.objects.filter(age=22))
