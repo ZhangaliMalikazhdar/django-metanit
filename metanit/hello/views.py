@@ -1,39 +1,37 @@
 from .models import Person
-from django.db.models import Avg, Min, Max, Sum
+from django.db import connection
 
 
-people = Person.objects.order_by('-name', 'age')
+people = Person.objects.raw('SELECT id, name from hello_person')
 for person in people:
     print(person)
+print(people[1].name)
+print()
+print(Person.objects.filter(age__lte=40).raw('select * from hello_person')[0])
+# nothing matter
 print()
 
-# people = Person.objects.values('name')
-# people = Person.objects.values_list()
-# people = Person.objects.values_list('name', flat=True)
-people = Person.objects.values_list('name', flat=True).distinct()
-print(people)
+name = 'Bob'
+age = 30
+people = Person.objects.raw('select * from hello_person where name = %s or age > %s', [name, age])
+for i in people:
+    print(i)
 print()
 
-bob = Person.objects.filter(name='Bob')
-akame = Person.objects.filter(name='Akame')
-print(akame.union(bob, all=False).values())
-# union intersection difference
-print()
+# with connection.cursor() as cursor:
+#     cursor.execute('update hello_person set name="Tomas" where name="Bob" and age=10')
+#     cursor.execute('select * from hello_person')
+#     row = cursor.fetchone()
+#     print(row)
 
-print(Person.objects.latest('id').id)
-print(Person.objects.earliest('-id').id)
+# z = Person.objects.values_list()
+# print(z)
 
-print(Person.objects.first())
-print(Person.objects.last())
-print()
-
-print(Person.objects.filter(age__gt=134).exists())
-print(Person.objects.filter(age__gte=10).contains(Person.objects.last()))
-print()
-
-print(Person.objects.acount())
-# Что использовать: count или len? Если объекты уже ранее были загружены (например, с помощью метода all()), то оптимальнее использовать функцию len(), которая не выполняет к базе данных запрос SQL, а работает с уже загруженным набором объектов. Если же объекты ранее НЕ были загружены, то лучше выполнить метод count(), для которого не потребуется загружать все объекты из бд.
-print(Person.objects.aggregate(Avg('age')))
-print(Person.objects.aggregate(Sum('age')))
-print(Person.objects.aggregate(Min('age')))
-print(Person.objects.aggregate(Max('age')))
+old = 'Tomas'
+new = 'Tom'
+with connection.cursor() as cursor:
+    cursor.execute('update hello_person set name = %s where name = %s', [new, old])
+    cursor.execute('select * from hello_person where name="Tom"')
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
