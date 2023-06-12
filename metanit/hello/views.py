@@ -1,37 +1,41 @@
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from .models import Person
-from django.db import connection
 
 
-people = Person.objects.raw('SELECT id, name from hello_person')
-for person in people:
-    print(person)
-print(people[1].name)
-print()
-print(Person.objects.filter(age__lte=40).raw('select * from hello_person')[0])
-# nothing matter
-print()
+def index(request):
+    people = Person.objects.all()
+    return render(request, 'index.html', {'people': people})
 
-name = 'Bob'
-age = 30
-people = Person.objects.raw('select * from hello_person where name = %s or age > %s', [name, age])
-for i in people:
-    print(i)
-print()
 
-# with connection.cursor() as cursor:
-#     cursor.execute('update hello_person set name="Tomas" where name="Bob" and age=10')
-#     cursor.execute('select * from hello_person')
-#     row = cursor.fetchone()
-#     print(row)
+def create(request):
+    if request.method == 'POST':
+        person = Person()
+        person.name = request.POST.get('name')
+        person.age = request.POST.get('age')
+        person.save()
+    return HttpResponseRedirect('/')
 
-# z = Person.objects.values_list()
-# print(z)
 
-old = 'Tomas'
-new = 'Tom'
-with connection.cursor() as cursor:
-    cursor.execute('update hello_person set name = %s where name = %s', [new, old])
-    cursor.execute('select * from hello_person where name="Tom"')
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+def edit(request, pk):
+    try:
+        person = Person.objects.get(id=pk)
+
+        if request.method == 'POST':
+            person.name = request.POST.get('name')
+            person.age = request.POST.get('age')
+            person.save()
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'edit.html', {'person': person})
+    except Person.DoesNotExist:
+        return HttpResponseNotFound('<h2>Prs nt found</h2>')
+
+
+def delete(request, pk):
+    try:
+        person = Person.objects.get(id=pk)
+        person.delete()
+        return HttpResponseRedirect('/')
+    except Person.DoesNotExist:
+        return HttpResponseNotFound('<h2>prs nt fnd')

@@ -14,17 +14,31 @@
     </style>
 </head>
 <body>
-    <form method="POST">
+    <form method="POST" action="create/">
         {% csrf_token %}
-        <div>
-            {% for field in form %}
-            <div>
-                {{ field.label_tag }}
-                <div>{{ field }}</div>
-            </div>
-            {% endfor %}
-        </div>
-        <input type="submit" value="Send" >
+        <p>
+            <label>write name</label><br>
+            <input type="text" name="name" />
+        </p>
+        <p>
+            <label>write age</label><br>
+            <input type="number" name="age" />
+        </p>
+        <input type="submit" value="Save" >
     </form>
+    {% if people.count > 0 %}
+    <h2>list user</h2>
+    <table>
+        <thead><th>Id</th><th>Name</th><th>Age</th><th></th></thead>
+        {% for person in people %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.age }}</td>
+            <td><a href="edit/{{ person.id }}">Change</a> | <a href="delete/{{ person.id }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
 </body>
 </html>
