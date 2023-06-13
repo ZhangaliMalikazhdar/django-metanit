@@ -1,56 +1,23 @@
-from django.shortcuts import render
 from .models import *
-from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 
-def index(request):
-    products = Product.objects.all()
-    return render(request, 'index.html', {'products': products})
+tom = Student.objects.create(name='Tom')
+tom.courses.create(name='Algebra')
+# courses = Student.objects.get(name='Tom').courses.all()
 
+students = Student.objects.filter(courses__name='Algebra')
+print(students.values_list)
+python = Course.objects.create(name='Python')
+python.student_set.create(name='Bob')
 
-def create(request):
-    create_companies()
+sam = Student(name='Sam')
+sam.save()
+python.student_set.add(sam)
 
-    if request.method == 'POST':
-        product = Product()
-        product.name = request.POST.get('name')
-        product.price = request.POST.get('price')
-        product.company_id = request.POST.get('company')
-        product.save()
-        return HttpResponseRedirect('/')
+students = python.student_set.all()
 
-    companies = Company.objects.all()
-    return render(request, 'create.html', {'companies': companies})
+number = python.student_set.count()
 
+python.student_set.remove(sam)
 
-def edit(request, pk):
-    try:
-        product = Product.objects.get(id=pk)
-
-        if request.method == 'POST':
-            product.name = request.POST.get('name')
-            product.price = request.POST.get('price')
-            product.company_id = request.POST.get('company')
-            product.save()
-            return HttpResponseRedirect('/')
-        else:
-            companies = Company.objects.all()
-            return render(request, 'edit.html', {'product': product, 'companies': companies})
-    except Product.DoesNotExist:
-        return HttpResponseNotFound('<h2>pr nt fnd</h2>')
-
-
-def delete(request, pk):
-    try:
-        product = Product.objects.get(id=pk)
-        product.delete()
-        return HttpResponseRedirect('/')
-    except Product.DoesNotExist:
-        return HttpResponseNotFound('<h2> pr nt f</h2>')
-
-
-def create_companies():
-    if Company.objects.all().count() == 0:
-        Company.objects.create(name='Apple')
-        Company.objects.create(name='Asus')
-        Company.objects.create(name='MSI')
+python.student_set.clear()
